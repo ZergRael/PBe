@@ -49,6 +49,7 @@
     "images/Classic/endless_scrolling_paused.png",
     "images/LordVal/to_top_small.png",
     "images/LordVal/endless_scrolling_active.png",
-    "images/LordVal/endless_scrolling_paused.png"
+    "images/LordVal/endless_scrolling_paused.png",
+    "main.css"
   ]
 }
