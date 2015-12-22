@@ -33,8 +33,8 @@ ext.modules.model = {
 
     module.foo();
 
-    dbg('loadModule : Ready');
-  }
+    module.dbg('loadModule : Ready');
+  },
 
   foo: function() {
     var module = this;
