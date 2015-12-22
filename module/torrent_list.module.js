@@ -157,10 +157,10 @@ ext.modules.torrent_list = {
       }
     });
 
+    module.columnSorter();
     module.initColumns();
     module.tagTorrents($('#torrent_list tr:not(.head_torrent)'));
     module.filtersChanged();
-    module.columnSorter();
 
     $('#torrent_list').on('mouseenter', 'a', function() {
         module.showTorrentComments($(this));
