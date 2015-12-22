@@ -360,13 +360,13 @@ ext.modules.torrent_list = {
     });
 
     if (showTorrents.length > 0) {
-      dbg('applyFilters : Showing [%d] lines', showTorrents.length);
+      module.dbg('applyFilters : Showing [%d] lines', showTorrents.length);
       $.each(showTorrents, function() {
         $(this).show();
       });
     }
     if (hideTorrents.length > 0) {
-      dbg('applyFilters : Hiding [%d] lines', hideTorrents.length);
+      module.dbg('applyFilters : Hiding [%d] lines', hideTorrents.length);
       $.each(hideTorrents, function() {
         $(this).hide();
       });
