@@ -1,0 +1,54 @@
+{
+  "name": "PBextended",
+  "short_name": "PBe",
+  "author": "PillBat",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "description": "PB and more",
+  "icons": { 
+    "16": "images/pbe.16.png",
+    "48": "images/pbe.48.png",
+    "128": "images/pbe.128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.phxbit.com/*"],
+      "js": [
+        "lib/jquery-2.1.4.min.js",
+        "lib/utils.js",
+        "options.js",
+        "main.js",
+        "module/global.module.js",
+        "module/endless_scrolling.module.js",
+        "module/torrent_list.module.js",
+        "module/sphinx.module.js",
+        "module/torrent.module.js",
+        "module/twits.module.js",
+        "module/forums.module.js",
+        "module/logs.module.js",
+        "module/bookmark.module.js",
+        "module/my.module.js",
+        "loader.js"
+      ],
+      "css": ["main.css"]
+    }
+  ],
+  "permissions": [ 
+    "storage"
+  ],
+  "web_accessible_resources": [
+    "images/loading.gif",
+    "images/bookmark.png",
+    "images/rss.png",
+    "images/nfo.png",
+    "images/download.png",
+    "images/watch.png",
+    "images/watch_new.png",
+    "images/Classic/to_top_small.png",
+    "images/Classic/endless_scrolling_active.png",
+    "images/Classic/endless_scrolling_paused.png",
+    "images/LordVal/to_top_small.png",
+    "images/LordVal/endless_scrolling_active.png",
+    "images/LordVal/endless_scrolling_paused.png"
+  ]
+}

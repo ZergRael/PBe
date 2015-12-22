@@ -1,0 +1,4 @@
+{
+	"preset": "grunt",
+	"excludeFiles": ['lib/jquery*'],
+}
