@@ -148,8 +148,8 @@ ext.modules.global = {
       callback: module.createImportExportFrame
     }];
 
-    var copyright = '<a href="/forums.php?action=viewtopic&topicid=TODO">' + ext.displayName + '</a> by ' +
-      '<a href="/user.php?id=130">' + ext.author + '</a><span class="ext_debug">.</span>';
+    var copyright = '<a href="/forums.php?action=viewtopic&topicid=91">' + ext.displayName + '</a> by ' +
+      '<a href="/account.php?id=130">' + ext.author + '</a><span class="ext_debug">.</span>';
     utils.appendFrame({
       id: 'options',
       title: 'PBenhanced Options',
