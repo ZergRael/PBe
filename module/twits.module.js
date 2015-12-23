@@ -125,8 +125,9 @@ ext.modules.twits = {
       var selEnd = bbcode.lastIndexOf('   ');
     } else {
       var text = $e.val();
-      var selStart = $e.get(0).selectionStart;
-      var selEnd = $e.get(0).selectionEnd;
+      var htmlElement = $e.get(0);
+      var selStart = htmlElement.selectionStart;
+      var selEnd = htmlElement.selectionEnd;
     }
 
     var matchingAts = text.match(/\B@\w+/g);
@@ -176,14 +177,18 @@ ext.modules.twits = {
     }
 
     module.iPseudo = module.iPseudo >= module.pseudosMatches.length - 1 ? 0 : module.iPseudo + 1;
-    module.dbg('autoComplete : Found a match : [%s] > %s', textToAutoc, module.pseudosMatches[module.iPseudo]);
-    var content = text.substr(0, matchStart) + module.pseudosMatches[module.iPseudo] +
-      (module.iPseudo === 0 || wysiwyg ? '' : ' ') +
+    var insertPseudo = module.pseudosMatches[module.iPseudo];
+    var includeSpace = module.iPseudo !== 0 && !wysiwyg;
+    module.dbg('autoComplete : Found a match : [%s] > %s', textToAutoc, insertPseudo);
+    var content = text.substr(0, matchStart) + insertPseudo +
+      (includeSpace ? ' ' : '') +
       text.substr(matchStart + textToAutoc.length + (wysiwyg ? 4 : 0) + (module.iPseudo == 1 ? 0 : 1));
     if (wysiwyg) {
       module.sendWysiwygCommand(wysiwyg, 'setbbcode', null, content);
     } else {
       $e.val(content);
+      htmlElement.selectionStart = matchStart + insertPseudo.length + (includeSpace ? 1 : 0);
+      htmlElement.selectionEnd = htmlElement.selectionStart;
     }
   },
 
