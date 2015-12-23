@@ -1,5 +1,5 @@
 var ext = {
-  DEBUG: false,
+  DEBUG: true,
   name: 'pbe',
   displayName: 'PBe',
   author: 'PillBat',

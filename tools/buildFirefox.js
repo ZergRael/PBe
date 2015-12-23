@@ -102,6 +102,7 @@ function runBuildCommand() {
 }
 
 function build() {
+  console.log('Build firefox');
   copyFiles();
   updateManifest();
   cleanUp();

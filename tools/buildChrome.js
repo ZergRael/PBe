@@ -2,6 +2,7 @@ var exec = require('child_process').exec;
 var path = require('path');
 
 function build() {
+  console.log('Build chrome');
   var cmd = [
     '7z',
     'a',
