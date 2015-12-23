@@ -29,10 +29,12 @@ ext.modules.shoutbox = {
     module.$dupe_shoutbox = null;
 
     module.removeSound();
+    module.removeAvatars();
 
     window.addEventListener('message', function(e) {
       if (e.data.type == 'ext_shoutbox_ajaxsuccess') {
         ext.modules.twits.delayedColor();
+        module.removeAvatars();
         module.updateDupeShoutbox();
       }
     }, false);
@@ -56,6 +58,13 @@ ext.modules.shoutbox = {
     var module = this;
     if (opt.get(module.name, 'no_sound')) {
       $('#son').prop('checked', false).parent().hide();
+    }
+  },
+
+  removeAvatars: function() {
+    var module = this;
+    if (opt.get(module.name, 'no_avatar')) {
+      module.$shoutbox.find('tr td:nth-child(2n+1)').hide();
     }
   },
 

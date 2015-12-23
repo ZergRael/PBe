@@ -246,7 +246,12 @@ var opt = {
         defaultVal: false,
         showInOptions: true,
         dispText: 'Retirer le son de manière permanente',
-      }
+      },
+      no_avatar: {
+        defaultVal: false,
+        showInOptions: true,
+        dispText: 'Cacher les avatars',
+      },
     }
   },
   // Returns value for module(m) & option(o)

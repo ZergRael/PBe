@@ -72,6 +72,9 @@
 #ext_aura_controls tbody td { vertical-align: inherit; }
 .ext_aura_result { font-weight: bold; }
 
+/* Shoutbox */
+#dupe_shoutbox_contain tr { line-height: 2; }
+
 /* Misc */
 .halfOpacity { opacity: 0.4; }
 .resume_endless_scrolling { font-size: 1.4em; font-weight: bold; }
