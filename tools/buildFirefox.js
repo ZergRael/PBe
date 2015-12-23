@@ -43,6 +43,7 @@ function updateManifest() {
   var mainSuffix = [
     '',
     '  },',
+    '  contentScriptWhen: "ready",',
     '  onAttach: function(worker) {',
     '    worker.port.on("storageGet", function(key) {',
     '      worker.port.emit("storageGet" + key, sstorage.storage[key]);',

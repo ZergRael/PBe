@@ -39,6 +39,7 @@ pageMod.PageMod({
     "images/LordVal/endless_scrolling_paused.png": self.data.url("images/LordVal/endless_scrolling_paused.png"),
     "main.css": self.data.url("main.css")
   },
+  contentScriptWhen: "ready",
   onAttach: function(worker) {
     worker.port.on("storageGet", function(key) {
       worker.port.emit("storageGet" + key, sstorage.storage[key]);
