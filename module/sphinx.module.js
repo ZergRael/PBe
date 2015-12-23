@@ -16,6 +16,8 @@ ext.modules.sphinx = {
     var module = this;
     module.options = mOptions;
     module.prepared = true;
+
+    module.fixEmptySearch();
   },
 
   loadModule: function() {
@@ -81,5 +83,13 @@ ext.modules.sphinx = {
         $('#ext_suggest_data').html(suggestionsHtml);
       });
     }
+  },
+
+  fixEmptySearch: function() {
+    $('#form.search').submit(function(e) {
+      if ($(this).find('#sphinxinput').val() == '') {
+        $(this).find('select[name=exact]').val(0);
+      }
+    });
   },
 };
