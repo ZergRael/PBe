@@ -16,6 +16,7 @@ pageMod.PageMod({
     self.data.url("module/torrent_list.module.js"),
     self.data.url("module/sphinx.module.js"),
     self.data.url("module/torrent.module.js"),
+    self.data.url("module/shoutbox.module.js"),
     self.data.url("module/twits.module.js"),
     self.data.url("module/forums.module.js"),
     self.data.url("module/logs.module.js"),
