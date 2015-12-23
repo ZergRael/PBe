@@ -71,9 +71,6 @@ ext.modules.twits = {
     var module = this;
     module.loaded = true;
 
-    module.$shoutbox = $('#shoutbox_contain');
-    module.$dupe_shoutbox = null;
-
     // Twit autocomplete
     if (module.options.twitAutocomplete) {
       $(document).on('keydown', module.options.twitAutocomplete, function(e) {
@@ -90,28 +87,6 @@ ext.modules.twits = {
         module.colorizeTwits();
       });
       module.colorizeTwits();
-    }
-
-    // Twit color on ajax receive
-    if (module.options.twitColorAjaxed) {
-      window.addEventListener('message', function(e) {
-        if (e.data.type == 'ext_shoutbox_ajaxsuccess') {
-          module.appendPseudosHashmap();
-          module.ajaxColorizeTwits();
-          module.updateDupeShoutbox();
-        }
-      }, false);
-
-      // Insert script directly in html to catch ajax global events
-      utils.insertScript('ext_shoutbox', function() {
-        $(document).ajaxSuccess(function(e, xhr, settings, data) {
-          window.postMessage({
-            type: 'ext_shoutbox_ajaxsuccess'
-          }, '*');
-        });
-      }, true);
-      module.ajaxColorizeTwits();
-      module.duplicateShoutbox();
     }
 
     $(document).on('endless_scrolling_insertion_done', function() {
@@ -307,13 +282,9 @@ ext.modules.twits = {
     });
   },
 
-  duplicateShoutbox: function() {
-    this.$dupe_shoutbox = this.$shoutbox.clone().attr('id', 'dupe_shoutbox_contain');
-    this.$shoutbox.hide().after(this.$dupe_shoutbox);
-  },
-
-  updateDupeShoutbox: function() {
-    this.$dupe_shoutbox.html(this.$shoutbox.html());
+  delayedColor: function() {
+    this.appendPseudosHashmap();
+    this.ajaxColorizeTwits();
   },
 
   buildPseudosHashmap: function() {

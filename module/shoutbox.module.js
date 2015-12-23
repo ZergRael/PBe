@@ -3,8 +3,7 @@ ext.modules.shoutbox = {
   dText: 'Shoutbox',
   pages: [{
     path_name: '/shoutbox.php',
-    options: {
-    }
+    options: {}
   }],
   loaded: false,
   prepared: false,
@@ -26,7 +25,29 @@ ext.modules.shoutbox = {
     module.dbg('loadModule : Starting');
     // Execute functions
 
+    module.$shoutbox = $('#shoutbox_contain');
+    module.$dupe_shoutbox = null;
+
     module.removeSound();
+
+    window.addEventListener('message', function(e) {
+      if (e.data.type == 'ext_shoutbox_ajaxsuccess') {
+        ext.modules.twits.delayedColor();
+        module.updateDupeShoutbox();
+      }
+    }, false);
+
+    // Insert script directly in html to catch ajax global events
+    utils.insertScript('ext_shoutbox', function() {
+      $(document).ajaxSuccess(function(e, xhr, settings, data) {
+        window.postMessage({
+          type: 'ext_shoutbox_ajaxsuccess'
+        }, '*');
+      });
+    }, true);
+
+    ext.modules.twits.delayedColor();
+    module.duplicateShoutbox();
 
     module.dbg('loadModule : Ready');
   },
@@ -36,5 +57,14 @@ ext.modules.shoutbox = {
     if (opt.get(module.name, 'no_sound')) {
       $('#son').prop('checked', false).parent().hide();
     }
+  },
+
+  duplicateShoutbox: function() {
+    this.$dupe_shoutbox = this.$shoutbox.clone().attr('id', 'dupe_shoutbox_contain');
+    this.$shoutbox.hide().after(this.$dupe_shoutbox);
+  },
+
+  updateDupeShoutbox: function() {
+    this.$dupe_shoutbox.html(this.$shoutbox.html());
   },
 };
