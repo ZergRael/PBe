@@ -154,6 +154,9 @@ ext.modules.torrent_list = {
     }).on('keyup', function(e) {
       if (e.which == 13) {
         module.filtersChanged();
+      } else if (e.which == 27) {
+        $(this).val('');
+        module.filtersChanged();
       }
     });
 
