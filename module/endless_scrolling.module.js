@@ -34,7 +34,7 @@ ext.modules.endless_scrolling = {
       optName: 'viewforum',
       loading: '.thin table',
       loadingPosition: 'after',
-      pagination: '.linkbox', // TODO : checkme
+      pagination: '.linkbox:not(:first)',
       domExtract: 'tbody tr:not(.colhead)',
       domInsertion: '.thin tr:last',
       domInsertionPosition: 'after',
