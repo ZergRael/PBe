@@ -24,13 +24,13 @@ function updateManifest() {
 
   var mainPrefix = [
     '// Import the page-mod API',
-    'var pageMod = require("sdk/page-mod");',
+    'var pageMod = require(\'sdk/page-mod\');',
     '// Import the self API',
-    'var self = require("sdk/self");',
+    'var self = require(\'sdk/self\');',
     '// Import simple-storage API',
-    'var sstorage = require("sdk/simple-storage");',
+    'var sstorage = require(\'sdk/simple-storage\');',
     'pageMod.PageMod({',
-    '  include: ["*.phxbit.com"],',
+    '  include: [\'*.phxbit.com\'],',
     '  contentScriptFile: [',
     '',
   ];
@@ -43,24 +43,25 @@ function updateManifest() {
   var mainSuffix = [
     '',
     '  },',
-    '  contentScriptWhen: "ready",',
+    '  contentScriptWhen: \'ready\',',
     '  onAttach: function(worker) {',
-    '    worker.port.on("storageGet", function(key) {',
-    '      worker.port.emit("storageGet" + key, sstorage.storage[key]);',
+    '    worker.port.on(\'storageGet\', function(key) {',
+    '      worker.port.emit(\'storageGet\' + key, sstorage.storage[key]);',
     '    });',
-    '    worker.port.on("storageSet", function(obj) {',
+    '    worker.port.on(\'storageSet\', function(obj) {',
     '      sstorage.storage[obj.key] = obj.val;',
     '    });',
     '  }',
     '});',
+    '',
   ];
   var mainJs = [];
   manifest.content_scripts[0].js.forEach(function(e) {
-    mainJs.push('    self.data.url("' + e + '")');
+    mainJs.push('    self.data.url(\'' + e + '\')');
   });
   var mainRes = [];
   manifest.web_accessible_resources.forEach(function(e) {
-    mainRes.push('    "' + e + '": self.data.url("' + e + '")');
+    mainRes.push('    \'' + e + '\': self.data.url(\'' + e + '\')');
   });
 
   main = mainPrefix.join('\n') + mainJs.join(',\n') + mainMid.join('\n') + mainRes.join(',\n') + mainSuffix.join('\n');

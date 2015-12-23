@@ -1,4 +1,8 @@
 {
 	"preset": "grunt",
-	"excludeFiles": ['lib/jquery*'],
+	"excludeFiles": [
+		'lib/jquery*',
+		'firefox/data/lib/jquery*',
+		'tools/node_modules',
+	],
 }
