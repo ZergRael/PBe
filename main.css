@@ -75,6 +75,9 @@
 /* Shoutbox */
 #dupe_shoutbox_contain tr { line-height: 2; }
 
+/* Endless scrolling */
+.page_loading { text-align: center; }
+
 /* Misc */
 .halfOpacity { opacity: 0.4; }
 .resume_endless_scrolling { font-size: 1.4em; font-weight: bold; }

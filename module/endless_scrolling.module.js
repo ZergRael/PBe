@@ -380,16 +380,11 @@ ext.modules.endless_scrolling = {
       nextUrl.cancelQ = module.options.cancelQ || nextUrl.cancelQ || false;
       nextUrl.cancelAmp = module.options.cancelAmp || nextUrl.cancelAmp || false;
       nextUrl.params.page = module.nextPage;
-      var loadingP = '<p class="pager_align page_loading"><img src="' + utils.getExtensionUrl(
+      var loadingP = '<p class="page_loading"><img src="' + utils.getExtensionUrl(
         'images/loading.gif') + '" /><br />Réticulation des méta-données de la page suivante</p>';
 
       // Loading gif injection
       utils.insertHtml(loadingP, $(module.options.loading), module.options.loadingPosition);
-      if (module.options.loadingAfter) {
-        $(module.options.loading).after(loadingP);
-      } else {
-        $(module.options.loading).before(loadingP);
-      }
 
       // Fetching
       utils.grabPage(nextUrl, function(data, pageI) {
