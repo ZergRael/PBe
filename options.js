@@ -240,6 +240,13 @@ var opt = {
         defaultVal: false,
         showInOptions: false
       }
+    },
+    shoutbox: {
+      no_sound: {
+        defaultVal: false,
+        showInOptions: true,
+        dispText: 'Retirer le son de manière permanente',
+      }
     }
   },
   // Returns value for module(m) & option(o)

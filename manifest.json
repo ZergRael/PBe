@@ -23,6 +23,7 @@
         "module/torrent_list.module.js",
         "module/sphinx.module.js",
         "module/torrent.module.js",
+        "module/shoutbox.module.js",
         "module/twits.module.js",
         "module/forums.module.js",
         "module/logs.module.js",
