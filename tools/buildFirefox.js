@@ -1,27 +1,26 @@
 var fs = require('fs-extra');
 var path = require('path');
-var firefoxDir = 'PBe_ff';
 var exec = require('child_process').exec;
 
 function copyFiles() {
   var copyDirs = ['images', 'lib', 'module'];
   copyDirs.forEach(function(d) {
-    fs.copySync(path.join('..', d), path.join('..', '..', firefoxDir, 'data', d));
+    fs.copySync(path.join('..', d), path.join('..', 'firefox', 'data', d));
   });
   var filesReg = new RegExp(/\.(js|css)?$/);
   var copyFiles = fs.readdirSync(path.join('..')).filter(function(f) {
     return filesReg.test(f);
   });
   copyFiles.forEach(function(f) {
-    fs.copySync(path.join('..', f), path.join('..', '..', firefoxDir, 'data', f));
+    fs.copySync(path.join('..', f), path.join('..', 'firefox', 'data', f));
   });
 }
 
 function updateManifest() {
   var manifest = fs.readJsonSync(path.join('..', 'manifest.json'));
-  var packag = fs.readJsonSync(path.join('..', '..', firefoxDir, 'package.json'));
+  var packag = fs.readJsonSync(path.join('..', 'firefox', 'package.json'));
   packag.version = manifest.version;
-  fs.writeJsonSync(path.join('..', '..', firefoxDir, 'package.json'), packag);
+  fs.writeJsonSync(path.join('..', 'firefox', 'package.json'), packag);
 
   var mainPrefix = [
     '// Import the page-mod API',
@@ -65,20 +64,46 @@ function updateManifest() {
 
   main = mainPrefix.join('\n') + mainJs.join(',\n') + mainMid.join('\n') + mainRes.join(',\n') + mainSuffix.join('\n');
 
-  fs.outputFileSync(path.join('..', '..', firefoxDir, 'index.js'), main);
+  fs.outputFileSync(path.join('..', 'firefox', 'index.js'), main);
+}
+
+var xpiReg = new RegExp(/\.xpi?$/);
+
+function cleanUp() {
+  var xpis = fs.readdirSync(path.join('..', 'firefox')).filter(function(f) {
+    return xpiReg.test(f);
+  });
+  xpis.forEach(function(xpi) {
+    fs.removeSync(path.join('..', 'firefox', xpi));
+  });
 }
 
 function runBuildCommand() {
-  process.chdir(path.join('..', '..', firefoxDir));
+  process.chdir(path.join('..', 'firefox'));
   var cmd = ['jpm', 'xpi'];
   exec(cmd.join(' '), function(error, stdout, stderr) {
     console.log(stdout);
+    var xpis = fs.readdirSync('.').filter(function(f) {
+      return xpiReg.test(f);
+    });
+    xpis.forEach(function(xpi) {
+      fs.move(xpi, path.join('..', 'build', 'pbe.xpi'), {
+        clobber: true
+      }, function(e) {
+        if (e) {
+          console.log(e);
+        } else {
+          console.log('Success');
+        }
+      });
+    });
   });
 }
 
 function build() {
   copyFiles();
   updateManifest();
+  cleanUp();
   runBuildCommand();
 }
 

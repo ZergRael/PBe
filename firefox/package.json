@@ -1,0 +1,12 @@
+{
+  "description": "PB and more",
+  "license": "MIT",
+  "author": "PillBat",
+  "icon64": "data/images/pbe.64.png",
+  "name": "pbe",
+  "title": "PBe",
+  "version": "0.1.1",
+  "id": "pbe@thetabx.net",
+  "icon": "resource://pbe-at-thetabx-dot-net/data/images/pbe.48.png",
+  "updateURL": "https://thetabx.net/addon/pbe/firefox/%APP_OS%/%CURRENT_APP_VERSION%/%ITEM_VERSION%/"
+}
