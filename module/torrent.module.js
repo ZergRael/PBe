@@ -18,6 +18,11 @@ ext.modules.torrent = {
     var module = this;
     module.options = mOptions;
     module.prepared = true;
+
+    var name = $('#contenu .separate:first').text().trim();
+    if (name.indexOf('Erreur : 404') == -1) {
+      module.torrentName = name;
+    }
   },
 
   loadModule: function() {
@@ -28,6 +33,7 @@ ext.modules.torrent = {
     // Execute functions
 
     module.addBookmarkStar(ext.url.params.id);
+    module.dupeCheck();
 
     module.dbg('loadModule : Ready');
   },
@@ -38,5 +44,22 @@ ext.modules.torrent = {
       $('#contenu .separate:first').prepend('<img src="' + utils.getExtensionUrl('images/bookmark.png') +
         '" />');
     }
+  },
+
+  dupeCheck: function() {
+    var module = this;
+    if (!opt.get(module.name, 'dupecheck') || !module.torrentName) {
+      return;
+    }
+    utils.grabPage({path: '/dupe.php', params: {q: module.torrentName, action: 'search'}}, function(aj) {
+      var line = $(aj).find('#dupe_list tr:nth(1) .dates');
+      if (line && line.length) {
+        var pretime = line.text().trim();
+        var $posttime = $('img[alt="Ajouté le"]').parent();
+        var posttime = $posttime.html().trim();
+        $posttime.html(posttime + ' - ' + utils.shortDurationFormat(pretime, posttime) +
+        ' after pre (' + pretime + ')');
+      }
+    });
   },
 };

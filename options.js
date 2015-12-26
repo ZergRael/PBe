@@ -206,6 +206,11 @@ var opt = {
       },
     },
     torrent: {
+      dupecheck: {
+        defaultVal: true,
+        showInOptions: true,
+        dispText: 'Dupecheck & pretime dans la description',
+      }
     },
     logs: {
       auto_refresh: {
