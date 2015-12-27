@@ -93,6 +93,20 @@ ext.modules.endless_scrolling = {
       domInsertion: '#torrent_list tbody',
       pageModifier: -1
     }
+  }, {
+    path_name: '/my.php',
+    params: {
+      action: 'activity',
+    },
+    options: {
+      optName: 'activity',
+      loading: '.pager_align:last',
+      loadingPosition: 'before',
+      pagination: '.pager_align',
+      domExtract: '#table_snatchlist tbody tr:not(:first)',
+      domInsertion: '#table_snatchlist tbody',
+      pageModifier: -1
+    }
   }],
 
   defaultScrollOffset: 200,

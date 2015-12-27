@@ -94,6 +94,14 @@ var opt = {
         parent: 'endless_scrolling',
         parentDeep: 1,
       },
+      activity: {
+        defaultVal: true,
+        showInOptions: true,
+        dispText: 'Mon activité',
+        tooltip: '/my.php?action=activity',
+        parent: 'endless_scrolling',
+        parentDeep: 1,
+      },
       pause_scrolling: {
         defaultVal: false,
         showInOptions: true,
