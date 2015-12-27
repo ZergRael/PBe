@@ -3,6 +3,7 @@ build/
 node_modules/
 firefox/data/
 *.pyc
+*.creds
 
 .zip
 .DS_Store

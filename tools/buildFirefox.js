@@ -80,25 +80,40 @@ function cleanUp() {
   });
 }
 
-function runBuildCommand() {
+function runBuildCommand(cb) {
   process.chdir(path.join('..', 'firefox'));
   var cmd = ['jpm', 'xpi'];
   exec(cmd.join(' '), function(error, stdout, stderr) {
     console.log(stdout);
-    var xpis = fs.readdirSync('.').filter(function(f) {
-      return xpiReg.test(f);
+    cb();
+  });
+}
+
+function moveXpi(cb) {
+  var xpis = fs.readdirSync('.').filter(function(f) {
+    return xpiReg.test(f);
+  });
+  xpis.forEach(function(xpi) {
+    fs.move(xpi, path.join('..', 'build', 'pbe.xpi'), {
+      clobber: true
+    }, function(e) {
+      if (e) {
+        console.log(e);
+      } else {
+        cb();
+      }
     });
-    xpis.forEach(function(xpi) {
-      fs.move(xpi, path.join('..', 'build', 'pbe.xpi'), {
-        clobber: true
-      }, function(e) {
-        if (e) {
-          console.log(e);
-        } else {
-          console.log('Success');
-        }
-      });
-    });
+  });
+}
+
+function signXpi() {
+  process.chdir(path.join('..', 'build'));
+  var firefoxCreds = fs.readJsonSync(path.join('..', 'tools', 'firefox.creds'));
+  var cmd = ['jpm', 'sign', '--api-key', firefoxCreds.user, '--api-secret',
+  firefoxCreds.secret, '--xpi', 'pbe.xpi'];
+  exec(cmd.join(' '), function(error, stdout, stderr) {
+    console.log(stdout);
+    console.log('Success');
   });
 }
 
@@ -107,7 +122,11 @@ function build() {
   copyFiles();
   updateManifest();
   cleanUp();
-  runBuildCommand();
+  runBuildCommand(function() {
+    moveXpi(function() {
+      signXpi();
+    });
+  });
 }
 
 exports.build = build;
