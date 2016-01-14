@@ -41,12 +41,6 @@ ext.modules.global = {
     module.fetchBookmarks();
     module.refreshBookmarksOnBookmark();
 
-    if (opt.get(module.name, 'no_xmas')) {
-      utils.insertScript('no_xmas', function() {
-        snowStorm.stop();
-      }, true);
-    }
-
     module.dbg('loadModule : Ready');
   },
 

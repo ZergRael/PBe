@@ -7,11 +7,6 @@ var opt = {
         showInOptions: true,
         dispText: 'Validation des formulaires avec ctrl+entrée',
       },
-      no_xmas: {
-        defaultVal: false,
-        showInOptions: true,
-        dispText: 'J\'aime pas Noël',
-      },
       options_section: {
         defaultVal: false,
         showInOptions: false,
