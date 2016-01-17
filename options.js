@@ -327,11 +327,17 @@ var gData = {
   data: {
     bookmarks: {
       torrents: [],
-      last_check: 0
+      age: 0
     }
   },
+  threshold: {
+    bookmarks: 24 * 60 * 60 * 1000,
+  }
   setFresh: function(m) {
-    this.set(m, 'last_check', new Date().getTime());
+    this.set(m, 'age', new Date().getTime());
+  },
+  isDataUsable: function(m) {
+    return new Date().getTime() < (this.get(m, 'age') + this.threshold[m]);
   },
   set: function(m, o, v) {
     this.data[m][o] = v;

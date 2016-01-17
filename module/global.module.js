@@ -316,16 +316,9 @@ ext.modules.global = {
     });
   },
 
-  timeOffsets: {
-    'bookmarks': 24 * 60 * 60 * 1000,
-  },
-  isDataUsable: function(data) {
-    return new Date().getTime() < (gData.get(data, 'last_check') + this.timeOffsets[data]);
-  },
-
   fetchBookmarks: function(force) {
     var module = this;
-    if (!force && module.isDataUsable('bookmarks')) {
+    if (!force && gData.isDataUsable('bookmarks')) {
       return;
     }
     module.dbg('fetchBookmarks : Grab bookmarks');
