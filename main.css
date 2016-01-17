@@ -50,6 +50,13 @@
 /* Shoutbox */
 #dupe_shoutbox_contain tr { line-height: 2; }
 
+/* Badge */
+.ext_badge_progress { text-align: center; }
+.ext_badge_area { margin-top: 4px; display: inline-block; width: 90px; border-radius: 2px; padding: 1px; border: 1px solid gray; font-size: 9px; }
+.ext_badge_bar { background-color: orange; height: 11px; border-radius: 1px; margin-bottom: -11px; }
+.ext_badge_num { position: relative; }
+.ext_badge_valid { background-color: lightgreen; }
+
 /* Endless scrolling */
 .page_loading { text-align: center; }
 

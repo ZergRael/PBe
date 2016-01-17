@@ -260,6 +260,18 @@ var opt = {
         showInOptions: true,
         dispText: 'Cacher les avatars',
       },
+    },
+    badge: {
+      reveal: {
+        defaultVal: false,
+        showInOptions: true,
+        dispText: 'Afficher les badges manquants',
+      },
+      progress: {
+        defaultVal: true,
+        showInOptions: true,
+        dispText: 'Afficher la progression',
+      }
     }
   },
   // Returns value for module(m) & option(o)

@@ -28,6 +28,7 @@
         "module/forums.module.js",
         "module/logs.module.js",
         "module/bookmark.module.js",
+        "module/badge.module.js",
         "module/my.module.js",
         "loader.js"
       ],
