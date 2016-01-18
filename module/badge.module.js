@@ -37,8 +37,6 @@ ext.modules.badge = {
       img: 'https://phxbit.com/static/images/badges/birthday5.png',
       hover: false,
     }],
-    val: false,
-    data: false
   }, {
     name: 'uploads',
     b: [{
@@ -67,8 +65,6 @@ ext.modules.badge = {
       img: 'https://phxbit.com/static/images/badges/ul5.png',
       hover: false,
     }],
-    val: false,
-    data: false
   }, {
     name: 'downloads',
     b: [{
@@ -97,8 +93,6 @@ ext.modules.badge = {
       img: 'https://phxbit.com/static/images/badges/dl5.png',
       hover: false,
     }],
-    val: false,
-    data: false
   }, {
     name: 'invitations',
     b: [{
@@ -127,8 +121,6 @@ ext.modules.badge = {
       img: 'https://phxbit.com/static/images/badges/invite5.png',
       hover: false,
     }],
-    val: false,
-    data: false
   }, {
     name: 'topics',
     b: [{
@@ -157,8 +149,6 @@ ext.modules.badge = {
       img: 'https://phxbit.com/static/images/badges/ftopic5.png',
       hover: false,
     }],
-    val: false,
-    data: false
   }, {
     name: 'posts',
     b: [{
@@ -187,8 +177,6 @@ ext.modules.badge = {
       img: 'https://phxbit.com/static/images/badges/fpost5.png',
       hover: false,
     }],
-    val: false,
-    data: false
   }, {
     name: 'requests',
     b: [{
@@ -217,8 +205,56 @@ ext.modules.badge = {
       img: false,
       hover: false,
     }],
-    val: false,
-    data: false
+  }],
+  values: {},
+  sources: [{
+    url: '/my.php',
+    block: [{
+      name: 'birthday',
+      selector: function($d) {
+        var v = false;
+        $d.find('#my-account p').each(function() {
+          var $p = $(this).find('.setname');
+          if ($p && $p.text() == 'Date d\'inscription') {
+            v = utils.dateToDuration($(this).find('label:last').text()).monthTot;
+            return false;
+          }
+        });
+        return v;
+      }
+    }, {
+      name: 'posts',
+      selector: function($d) {
+        var v = false;
+        $d.find('#my-account p').each(function() {
+          var $p = $(this).find('.setname');
+          if ($p && $p.text() == 'Commentaires torrents / Posts sur le forum') {
+            var m = $(this).find('label:last').text().match(/(\d+) post/);
+            if (m) {
+              v = Number(m[1]);
+            }
+            return false;
+          }
+        });
+        return v;
+      }
+    }],
+  }, {
+    url: '/my.php?action=activity&cmplter',
+    block: [{
+      name: 'downloads',
+      selector: function($d) {
+        return $d.find('#torrent_list tr:not(.head_torrent)').length;
+      }
+    }],
+  }, {
+    url: 'https://phxbit.com/my.php?action=activity&upload',
+    block: [{
+      name: 'uploads',
+      selector: function($d) {
+        return $d.find('#torrent_list tr:not(.head_torrent)').length;
+      }
+    }],
   }],
   defaultImg: 'https://phxbit.com/static/images/badges/soon.png',
 
@@ -243,6 +279,9 @@ ext.modules.badge = {
       module.reveal();
     }
     if (opt.get(module.name, 'progress')) {
+      $(document).on('badges_done', function() {
+        module.addProgress();
+      });
       if (gData.isDataUsable(module.name)) {
         module.addProgress();
       } else {
@@ -281,9 +320,12 @@ ext.modules.badge = {
   addProgress: function() {
     var module = this;
     module.dbg('addProgress : Started');
+    module.values = gData.get(module.name, 'values');
+
     $('#contenu table').each(function(i) {
       var bBlock = module.badges[i];
-      if (bBlock.val === false) {
+      var val = module.values[bBlock.name];
+      if (val === undefined || val === false) {
         return;
       }
 
@@ -300,12 +342,12 @@ ext.modules.badge = {
               class: 'ext_badge_area'
             }).append(
               $('<div>', {
-                class: 'ext_badge_bar' + (bBlock.val >= b.threshold ? ' ext_badge_valid' : '')
+                class: 'ext_badge_bar' + (val >= b.threshold ? ' ext_badge_valid' : '')
               })
-              .css('width', ((bBlock.val >= b.threshold ? b.threshold : bBlock.val) / b.threshold * 100) +
+              .css('width', ((val >= b.threshold ? b.threshold : val) / b.threshold * 100) +
                 '%'), $('<div>', {
                 class: 'ext_badge_num',
-                text: (bBlock.val >= b.threshold ? b.threshold : Math.round(bBlock.val)) + '/' + b.threshold
+                text: (val >= b.threshold ? b.threshold : Math.round(val)) + '/' + b.threshold
               })
             )
           )
@@ -317,6 +359,20 @@ ext.modules.badge = {
 
   fetchProgress: function() {
     var module = this;
-    //gData.setFresh(module.name);
+
+    utils.updateSiteRelativeDate();
+    var requiredFetches = module.sources.length;
+    $.each(module.sources, function(_, src) {
+      utils.grabPage(src.url, function(data) {
+        src.block.forEach(function(s, i) {
+          module.values[s.name] = s.selector($(data));
+        });
+        if (--requiredFetches <= 0) {
+          gData.set(module.name, 'values', module.values);
+          gData.setFresh(module.name);
+          $(document).trigger('badges_done');
+        }
+      });
+    });
   },
 };

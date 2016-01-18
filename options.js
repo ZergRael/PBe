@@ -341,6 +341,10 @@ var gData = {
       torrents: [],
       age: 0
     },
+    badge: {
+      values: {},
+      age: 0,
+    },
     global: {
       ak: false,
       age: 0,
@@ -348,7 +352,7 @@ var gData = {
   },
   threshold: {
     bookmarks: 24 * 60 * 60 * 1000,
-  }
+    badge: 60 * 60 * 1000,
     global: 4 * 7 * 24 * 60 * 60 * 1000,
   },
   setFresh: function(m) {
