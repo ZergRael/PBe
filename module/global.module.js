@@ -40,6 +40,9 @@ ext.modules.global = {
     module.listenToCtrlEnter();
     module.fetchBookmarks();
     module.refreshBookmarksOnBookmark();
+    if (!gData.isDataUsable(module.name)) {
+      module.prefetchAuthkey();
+    }
 
     module.dbg('loadModule : Ready');
   },
@@ -365,6 +368,17 @@ ext.modules.global = {
           }
         }
       }
+    });
+  },
+
+  prefetchAuthkey: function() {
+    var module = this;
+    utils.grabPage('/my.php', function(d) {
+      var $a = $(d).find('a[href*="&ak="]');
+      if ($a) {
+        gData.set(module.name, 'ak', $a.attr('href').substr(-40));
+      }
+      gData.setFresh(module.name);
     });
   },
 };

@@ -340,11 +340,17 @@ var gData = {
     bookmarks: {
       torrents: [],
       age: 0
+    },
+    global: {
+      ak: false,
+      age: 0,
     }
   },
   threshold: {
     bookmarks: 24 * 60 * 60 * 1000,
   }
+    global: 4 * 7 * 24 * 60 * 60 * 1000,
+  },
   setFresh: function(m) {
     this.set(m, 'age', new Date().getTime());
   },
