@@ -160,6 +160,7 @@ ext.modules.torrent_list = {
       }
     });
 
+    module.fullTitles = opt.get(module.name, 'full_titles');
     module.columnSorter();
     module.initColumns();
     module.tagTorrents($('#torrent_list tr:not(.head_torrent)'));
@@ -207,12 +208,15 @@ ext.modules.torrent_list = {
     var module = this;
     var t = {
       node: $node,
-      name: $node.find('strong').text(),
+      name: $node.find('a[title]').attr('title'),
       status: {},
       shown: true,
       nextNode: $node.next()
     };
     t.lName = t.name.toLowerCase();
+    if (module.fullTitles) {
+      $node.find('strong').text(t.name);
+    }
     var imgs = $node.find('img');
     $.each(imgs, function() {
       if (module.bookmarksList) {

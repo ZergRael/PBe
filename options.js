@@ -169,6 +169,11 @@ var opt = {
         showInOptions: true,
         dispText: 'Afficher un champ de filtrage par chaîne de caractères',
       },
+      full_titles: {
+        defaultVal: true,
+        showInOptions: true,
+        dispText: 'Ne pas tronquer les titres de torrents',
+      }
     },
     twits: {
       twit_auto_complete: {
