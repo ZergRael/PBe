@@ -238,6 +238,20 @@ ext.modules.badge = {
         });
         return v;
       }
+    }, {
+      name: 'uploads',
+      selector: function($d) {
+        $d.find('#my-account p').each(function() {
+          var $p = $(this).find('.setname');
+          if ($p && $p.text() == 'Nombre de torrents upload') {
+            var m = $(this).find('label:last').text().match(/(\d+)/);
+            if (m) {
+              v = Number(m[1]);
+            }
+            return false;
+          }
+        });
+      }
     }],
   }, {
     url: '/my.php?action=activity&cmplter',
@@ -248,6 +262,7 @@ ext.modules.badge = {
       }
     }],
   }, {
+    /*
     url: '/my.php?action=activity&upload',
     block: [{
       name: 'uploads',
@@ -255,6 +270,31 @@ ext.modules.badge = {
         return $d.find('#torrent_list tr:not(.head_torrent)').length / 2;
       }
     }],
+  }, {
+    */
+    url: null, //'/invite.php?action=mine&ak=' + utils.getAuthkey(),
+    block: [{
+      name: 'invitations',
+      selector: function($d) {
+        return 0; // TODO invite badge selector
+      }
+    }],
+  }, {
+    url: '/my.php?action=req',
+    block: [{
+      name: 'requests',
+      selector: function($d) {
+        return 0; // TODO request badge selector
+      }
+    }]
+  }, { // TODO Topics badge block
+    url: false,
+    block: [{
+      name: 'topics',
+      selector: function($d) {
+        return 0;
+      }
+    }]
   }],
   defaultImg: 'https://phxbit.com/static/images/badges/soon.png',
 
@@ -274,6 +314,10 @@ ext.modules.badge = {
 
     module.dbg('loadModule : Starting');
     // Execute functions
+
+    module.sources.filter(function(e) {
+      return e.url === null;
+    })[0].url = '/invite.php?action=mine&ak=' + utils.getAuthkey();
 
     if (opt.get(module.name, 'reveal')) {
       module.reveal();
