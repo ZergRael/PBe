@@ -142,7 +142,9 @@ ext.modules.global = {
     var buttons = [{
       id: 'im_export',
       text: 'Importer/Exporter',
-      callback: module.createImportExportFrame
+      callback: function() {
+        module.createImportExportFrame();
+      }
     }];
 
     var copyright = '<a href="/forums.php?action=viewtopic&topicid=91">' + ext.displayName + '</a> by ' +
@@ -281,8 +283,8 @@ ext.modules.global = {
       id: 'im_export',
       title: ext.displayName + ' Import/Export',
       data: frameData.join(''),
-      relativeToId: 'content',
-      top: 8,
+      relativeToId: 'global',
+      top: 200,
       left: 230
     });
     $('#import_file').change(function() {
