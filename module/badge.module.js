@@ -244,15 +244,15 @@ ext.modules.badge = {
     block: [{
       name: 'downloads',
       selector: function($d) {
-        return $d.find('#torrent_list tr:not(.head_torrent)').length;
+        return $d.find('#torrent_list tr:not(.head_torrent)').length / 2;
       }
     }],
   }, {
-    url: 'https://phxbit.com/my.php?action=activity&upload',
+    url: '/my.php?action=activity&upload',
     block: [{
       name: 'uploads',
       selector: function($d) {
-        return $d.find('#torrent_list tr:not(.head_torrent)').length;
+        return $d.find('#torrent_list tr:not(.head_torrent)').length / 2;
       }
     }],
   }],
