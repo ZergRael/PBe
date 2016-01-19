@@ -2,6 +2,7 @@ var ext = {
   DEBUG: true,
   name: 'pbe',
   displayName: 'PBe',
+  fullName: 'PBenhanced',
   author: 'PillBat',
 
   dbg: function() {

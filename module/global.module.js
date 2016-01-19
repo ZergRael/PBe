@@ -149,7 +149,7 @@ ext.modules.global = {
       '<a href="/account.php?id=130">' + ext.author + '</a><span class="ext_debug">.</span>';
     utils.appendFrame({
       id: 'options',
-      title: 'PBenhanced Options',
+      title: ext.fullName + ' Options',
       data: optionsFrameData,
       relativeToId: 'logolink',
       top: 8,
@@ -272,14 +272,14 @@ ext.modules.global = {
 
     var frameData = [
       '<div class="ext_frame_section_header">Exporter</div>',
-      '<a href="' + url + '" download="drakkar.backup.json">Télécharger l\'export des options</a>',
+      '<a href="' + url + '" download="' + ext.name + '.backup.json">Télécharger l\'export des options</a>',
       '<div class="ext_frame_section_header">Importer</div>',
       '<input id="import_file" type="file" />',
       '<div id="import_result"></div>'
     ];
     utils.appendFrame({
       id: 'im_export',
-      title: 'Drakkar Import/Export',
+      title: ext.displayName + ' Import/Export',
       data: frameData.join(''),
       relativeToId: 'content',
       top: 8,
