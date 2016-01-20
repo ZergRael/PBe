@@ -22,6 +22,10 @@ ext.modules.forums = {
     module.options = mOptions;
     module.prepared = true;
 
+    if (ext.url.hash) {
+      module.colorizeUnread(ext.url.hash);
+    }
+
     $(document).on('endless_scrolling_insertion_done', function() {
       module.dbg('loadModule : Endless scrolling module specific functions');
       $(document).trigger('recolor_twits');
@@ -63,5 +67,11 @@ ext.modules.forums = {
     }
 
     $('.usersignature').hide();
+  },
+
+  colorizeUnread: function(postId) {
+    var module = this;
+    module.dbg('colorizeUnread : Post ID [' + postId + ']');
+    $('a[href="' + postId + '"]').css({color: '#1B0', 'font-weight': 'bold'});
   },
 };
