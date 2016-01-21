@@ -241,6 +241,7 @@ ext.modules.badge = {
     }, {
       name: 'uploads',
       selector: function($d) {
+        var v = false;
         $d.find('#my-account p').each(function() {
           var $p = $(this).find('.setname');
           if ($p && $p.text() == 'Nombre de torrents upload') {
@@ -251,6 +252,7 @@ ext.modules.badge = {
             return false;
           }
         });
+        return v;
       }
     }],
   }, {
