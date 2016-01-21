@@ -64,4 +64,5 @@
 .resume_endless_scrolling { font-size: 1.4em; font-weight: bold; }
 .sig_separator { cursor: pointer; }
 .sig_separator:hover { text-decoration: underline; }
+#contenu #forums td.p-highlight { background-color: #AF9 !important; }
 #esPauseButton { display:none; text-decoration:none; position:fixed; bottom:10px; right:42px; overflow:hidden; width:26px; height:39px; border:none; text-indent:100%; }

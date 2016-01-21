@@ -72,6 +72,6 @@ ext.modules.forums = {
   colorizeUnread: function(postId) {
     var module = this;
     module.dbg('colorizeUnread : Post ID [' + postId + ']');
-    $('a[href="' + postId + '"]').css({color: '#1B0', 'font-weight': 'bold'});
+    $('a[href="' + postId + '"]').parents('td').addClass('p-highlight');
   },
 };
