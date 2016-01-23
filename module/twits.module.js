@@ -84,6 +84,7 @@ ext.modules.twits = {
     // Twit colorization
     if (module.options.twitColor) {
       $(document).on('recolor_twits', function() {
+        module.buildPseudosHashmap();
         module.colorizeTwits();
       });
       module.colorizeTwits();
