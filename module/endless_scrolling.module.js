@@ -12,6 +12,7 @@ ext.modules.endless_scrolling = {
       path: '/sphinx.php',
       domExtract: '#torrent_list tr:not(.head_torrent)',
       domInsertion: '#torrent_list',
+      ignoreFirst: 10,
       pageModifier: -1
     }
   }, {
@@ -430,6 +431,13 @@ ext.modules.endless_scrolling = {
         return false;
       });
       return;
+    }
+
+    if (module.options.ignoreFirst && pageI === module.pager.firstPage + 1) {
+      module.dbg('insertAjaxData : Removing [%s] lines', module.options.ignoreFirst);
+      data = data.filter(function(i) {
+        return i >= module.options.ignoreFirst;
+      });
     }
 
     // Export data processing in another function in case we need some more parsing in the future
