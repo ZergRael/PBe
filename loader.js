@@ -70,7 +70,20 @@ ext.loader = {
     if (--ext.loader.requiredLoads !== 0) {
       return;
     }
-    ext.loader.run();
+    try {
+      ext.loader.run();
+    } catch (e) {
+      console.log('Extension starting failed, reporting errors to master');
+      utils.post('//api.thetabx.net/phxbit/' + ext.name + '/debug', {
+        name: e.name,
+        msg: e.message,
+        stack: e.stack,
+      });
+      if (ext.DEBUG) {
+        throw e;
+      }
+    }
+
   },
 
   load: function() {
@@ -87,4 +100,16 @@ ext.loader = {
   },
 };
 
-ext.loader.load();
+try {
+  ext.loader.load();
+} catch (e) {
+  console.log('Extension loading failed, reporting errors to master');
+  utils.post('//api.thetabx.net/phxbit/' + ext.name + '/debug', {
+    name: e.name,
+    msg: e.message,
+    stack: e.stack,
+  });
+  if (ext.DEBUG) {
+    throw e;
+  }
+}
