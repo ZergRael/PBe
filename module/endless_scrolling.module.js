@@ -108,6 +108,18 @@ ext.modules.endless_scrolling = {
       domInsertion: '#table_snatchlist tbody',
       pageModifier: -1
     }
+  }, {
+    path_name: '/dupe.php',
+    options: {
+      optName: 'dupe',
+      loading: '.pager_align:last',
+      loadingPosition: 'before',
+      pagination: '.pager_align',
+      domExtract: '#dupe_list tbody tr:not(:first)',
+      domInsertion: '#dupe_list tbody',
+      pageModifier: -1,
+      notListeningToTrigger: true
+    }
   }],
 
   defaultScrollOffset: 200,

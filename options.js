@@ -81,6 +81,14 @@ var opt = {
         parent: 'endless_scrolling',
         parentDeep: 1,
       },
+      dupe: {
+        defaultVal: true,
+        showInOptions: true,
+        dispText: 'Dupecheck',
+        tooltip: '/dupe.php',
+        parent: 'endless_scrolling',
+        parentDeep: 1,
+      },
       series: {
         defaultVal: true,
         showInOptions: true,
