@@ -375,6 +375,7 @@ ext.modules.global = {
 
   prefetchAuthkey: function() {
     var module = this;
+    module.dbg('prefetchAuthkey : Started');
     utils.grabPage('/my.php', function(d) {
       var $a = $(d).find('a[href*="&ak="]');
       if ($a) {

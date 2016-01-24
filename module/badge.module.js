@@ -263,17 +263,7 @@ ext.modules.badge = {
         return $d.find('#torrent_list tr:not(.head_torrent)').length / 2;
       }
     }],
-  }, {
-    /*
-    url: '/my.php?action=activity&upload',
-    block: [{
-      name: 'uploads',
-      selector: function($d) {
-        return $d.find('#torrent_list tr:not(.head_torrent)').length / 2;
-      }
-    }],
-  }, {
-    */
+  }/*, {
     url: null, //'/invite.php?action=mine&ak=' + utils.getAuthkey(),
     block: [{
       name: 'invitations',
@@ -281,23 +271,23 @@ ext.modules.badge = {
         return 0; // TODO invite badge selector
       }
     }],
-  }, {
-    url: '/my.php?action=req',
+  }*/, {
+    url: '/my.php?action=req&filled',
     block: [{
       name: 'requests',
       selector: function($d) {
-        return 0; // TODO request badge selector
+        return $d.find('#requests_list tr:not(:first)').length;
       }
     }]
-  }, { // TODO Topics badge block
-    url: false,
+  }/*, {
+    url: false, // TODO Topics badge block
     block: [{
       name: 'topics',
       selector: function($d) {
         return 0;
       }
     }]
-  }],
+  }*/],
   defaultImg: 'https://phxbit.com/static/images/badges/soon.png',
 
   dbg: function() {
@@ -317,9 +307,11 @@ ext.modules.badge = {
     module.dbg('loadModule : Starting');
     // Execute functions
 
+    /*
     module.sources.filter(function(e) {
       return e.url === null;
     })[0].url = '/invite.php?action=mine&ak=' + utils.getAuthkey();
+    */
 
     if (opt.get(module.name, 'reveal')) {
       module.reveal();
@@ -405,6 +397,7 @@ ext.modules.badge = {
 
   fetchProgress: function() {
     var module = this;
+    module.dbg('fetchProgress : Started');
 
     utils.updateSiteRelativeDate();
     var requiredFetches = module.sources.length;
@@ -417,6 +410,7 @@ ext.modules.badge = {
           gData.set(module.name, 'values', module.values);
           gData.setFresh(module.name);
           $(document).trigger('badges_done');
+          module.dbg('fetchProgress : Done');
         }
       });
     });
