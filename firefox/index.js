@@ -21,6 +21,7 @@ pageMod.PageMod({
     self.data.url('module/forums.module.js'),
     self.data.url('module/logs.module.js'),
     self.data.url('module/bookmark.module.js'),
+    self.data.url('module/badge.module.js'),
     self.data.url('module/my.module.js'),
     self.data.url('loader.js')
   ],
