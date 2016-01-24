@@ -10,7 +10,7 @@ ext.modules.badge = {
   loaded: false,
   prepared: false,
   badges: [{
-    name: 'birthday',
+    name: 'Anniversaires',
     b: [{
       name: 'Minime',
       threshold: 1,
@@ -38,7 +38,7 @@ ext.modules.badge = {
       hover: false,
     }],
   }, {
-    name: 'uploads',
+    name: 'Uploads',
     b: [{
       name: false,
       threshold: 1,
@@ -66,7 +66,7 @@ ext.modules.badge = {
       hover: false,
     }],
   }, {
-    name: 'downloads',
+    name: 'Downloads',
     b: [{
       name: 'Micro SD',
       threshold: 1,
@@ -94,7 +94,7 @@ ext.modules.badge = {
       hover: false,
     }],
   }, {
-    name: 'invitations',
+    name: 'Invitations',
     b: [{
       name: false,
       threshold: 1,
@@ -122,7 +122,7 @@ ext.modules.badge = {
       hover: false,
     }],
   }, {
-    name: 'topics',
+    name: 'Topics',
     b: [{
       name: 'Journaliste',
       threshold: 1,
@@ -150,7 +150,7 @@ ext.modules.badge = {
       hover: false,
     }],
   }, {
-    name: 'posts',
+    name: 'Posts',
     b: [{
       name: 'Timide',
       threshold: 1,
@@ -178,7 +178,7 @@ ext.modules.badge = {
       hover: false,
     }],
   }, {
-    name: 'requests',
+    name: 'Requêtes',
     b: [{
       name: false,
       threshold: 1,
@@ -208,9 +208,10 @@ ext.modules.badge = {
   }],
   values: {},
   sources: [{
+    name: 'account',
     url: '/my.php',
     block: [{
-      name: 'birthday',
+      name: 'Anniversaires',
       selector: function($d) {
         var v = false;
         $d.find('#my-account p').each(function() {
@@ -223,7 +224,7 @@ ext.modules.badge = {
         return v;
       }
     }, {
-      name: 'posts',
+      name: 'Posts',
       selector: function($d) {
         var v = false;
         $d.find('#my-account p').each(function() {
@@ -239,7 +240,7 @@ ext.modules.badge = {
         return v;
       }
     }, {
-      name: 'uploads',
+      name: 'Uploads',
       selector: function($d) {
         var v = false;
         $d.find('#my-account p').each(function() {
@@ -256,33 +257,37 @@ ext.modules.badge = {
       }
     }],
   }, {
+    name: 'downloaded',
     url: '/my.php?action=activity&cmplter',
     block: [{
-      name: 'downloads',
+      name: 'Downloads',
       selector: function($d) {
         return $d.find('#torrent_list tr:not(.head_torrent)').length / 2;
       }
     }],
-  }/*, {
+  }, {
+    name: 'invite_list',
     url: null, //'/invite.php?action=mine&ak=' + utils.getAuthkey(),
     block: [{
-      name: 'invitations',
+      name: 'Invitations',
       selector: function($d) {
-        return 0; // TODO invite badge selector
+        // Just a guess, no idea what it looks like
+        return $d.find('#centre table tr:not(:first)').length;
       }
     }],
-  }*/, {
+  }, {
+    name: 'filled_requests',
     url: '/my.php?action=req&filled',
     block: [{
-      name: 'requests',
+      name: 'Requêtes',
       selector: function($d) {
         return $d.find('#requests_list tr:not(:first)').length;
       }
     }]
   }/*, {
-    url: false, // TODO Topics badge block
+    url: false, // TODO Find out if there's a way to get that value ?
     block: [{
-      name: 'topics',
+      name: 'Topics',
       selector: function($d) {
         return 0;
       }
@@ -307,11 +312,9 @@ ext.modules.badge = {
     module.dbg('loadModule : Starting');
     // Execute functions
 
-    /*
     module.sources.filter(function(e) {
-      return e.url === null;
+      return e.name == 'invite_list';
     })[0].url = '/invite.php?action=mine&ak=' + utils.getAuthkey();
-    */
 
     if (opt.get(module.name, 'reveal')) {
       module.reveal();
