@@ -59,6 +59,7 @@ ext.modules.torrent = {
         var posttime = $posttime.html().trim();
         $posttime.html(posttime + ' - ' + utils.shortDurationFormat(pretime, posttime) +
         ' after pre (' + pretime + ')');
+        $('#contenu .separate:first').prepend('<img src="https://phxbit.com/static/images/torrents/dupe.png" />');
       }
     });
   },
