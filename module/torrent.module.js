@@ -17,11 +17,12 @@ ext.modules.torrent = {
   prepare: function(mOptions) {
     var module = this;
     module.options = mOptions;
-    module.prepared = true;
 
     var name = $('#contenu .separate:first').text().trim();
     if (name.indexOf('Erreur : 404') == -1) {
       module.torrentName = name;
+      module.torrentId = ext.url.params.id;
+      module.prepared = true;
     }
   },
 
@@ -32,7 +33,7 @@ ext.modules.torrent = {
     module.dbg('loadModule : Starting');
     // Execute functions
 
-    module.addBookmarkStar(ext.url.params.id);
+    module.addBookmarkStar(module.torrentId);
     module.dupeCheck();
 
     module.dbg('loadModule : Ready');
