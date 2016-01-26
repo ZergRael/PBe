@@ -75,7 +75,7 @@ function moveXpi(cb) {
   });
 }
 
-function signXpi() {
+function signXpi(cb) {
   process.chdir(path.join('..', 'build'));
   var firefoxCreds = fs.readJsonSync(path.join('..', 'tools', 'firefox.creds'));
   var cmd = ['jpm', 'sign', '--api-key', firefoxCreds.user, '--api-secret',
@@ -83,17 +83,20 @@ function signXpi() {
   exec(cmd.join(' '), function(error, stdout, stderr) {
     console.log(stdout);
     console.log('Success');
+    if (cb) {
+      cb();
+    }
   });
 }
 
-function build() {
+function build(cb) {
   console.log('Build firefox');
   copyFiles();
   updateManifest();
   cleanUp();
   runBuildCommand(function() {
     moveXpi(function() {
-      signXpi();
+      signXpi(cb);
     });
   });
 }

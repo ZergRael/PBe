@@ -17,9 +17,8 @@ toggleDebug(false);
 var chrome = require('./buildChrome.js');
 chrome.build();
 var firefox = require('./buildFirefox.js');
-firefox.build();
-setTimeout(function() {
+firefox.build(function() {
   console.log('Enable debug mode');
   toggleDebug(true);
-}, 2000);
+});
 
