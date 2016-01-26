@@ -18,55 +18,24 @@ function copyFiles() {
 
 function updateManifest() {
   var manifest = fs.readJsonSync(path.join('..', 'manifest.json'));
-  var packag = fs.readJsonSync(path.join('..', 'firefox', 'package.json'));
-  packag.version = manifest.version;
-  fs.writeJsonSync(path.join('..', 'firefox', 'package.json'), packag);
+  var packageJson = fs.readJsonSync(path.join('..', 'firefox', 'package.json'));
+  packageJson.version = manifest.version;
+  fs.writeJsonSync(path.join('..', 'firefox', 'package.json'), packageJson);
 
-  var mainPrefix = [
-    '// Import the page-mod API',
-    'var pageMod = require(\'sdk/page-mod\');',
-    '// Import the self API',
-    'var self = require(\'sdk/self\');',
-    '// Import simple-storage API',
-    'var sstorage = require(\'sdk/simple-storage\');',
-    'pageMod.PageMod({',
-    '  include: [\'*.phxbit.com\'],',
-    '  contentScriptFile: [',
-    '',
-  ];
-  var mainMid = [
-    '',
-    '  ],',
-    '  contentScriptOptions: {',
-    '',
-  ];
-  var mainSuffix = [
-    '',
-    '  },',
-    '  contentScriptWhen: \'ready\',',
-    '  onAttach: function(worker) {',
-    '    worker.port.on(\'storageGet\', function(key) {',
-    '      worker.port.emit(\'storageGet\' + key, sstorage.storage[key]);',
-    '    });',
-    '    worker.port.on(\'storageSet\', function(obj) {',
-    '      sstorage.storage[obj.key] = obj.val;',
-    '    });',
-    '  }',
-    '});',
-    '',
-  ];
-  var mainJs = [];
+  var indexJs = fs.readFileSync(path.join('..', 'firefox', 'index.js'), 'utf8');
+  var js = [];
   manifest.content_scripts[0].js.forEach(function(e) {
-    mainJs.push('    self.data.url(\'' + e + '\')');
+    js.push('    self.data.url(\'' + e + '\')');
   });
-  var mainRes = [];
+  indexJs = indexJs.replace(/(contentScriptFile: \[\n)[\s\S]*(\n\s*\],)/, '$1' + js.join(',\n') + '$2');
+
+  var resources = [];
   manifest.web_accessible_resources.forEach(function(e) {
-    mainRes.push('    \'' + e + '\': self.data.url(\'' + e + '\')');
+    resources.push('    \'' + e + '\': self.data.url(\'' + e + '\')');
   });
+  indexJs = indexJs.replace(/(contentScriptOptions: \{\n)[\s\S]*(\n\s*\},)/, '$1' + resources.join(',\n') + '$2');
 
-  main = mainPrefix.join('\n') + mainJs.join(',\n') + mainMid.join('\n') + mainRes.join(',\n') + mainSuffix.join('\n');
-
-  fs.outputFileSync(path.join('..', 'firefox', 'index.js'), main);
+  fs.outputFileSync(path.join('..', 'firefox', 'index.js'), indexJs);
 }
 
 var xpiReg = new RegExp(/\.xpi?$/);
