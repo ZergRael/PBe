@@ -3,6 +3,9 @@ ext.modules.torrent = {
   dText: 'Fiche torrent',
   pages: [{
     path_name: '/torrent.php',
+    params: {
+      id: '*'
+    },
     options: {
       loading: '#torrent_comments p:last'
     }
