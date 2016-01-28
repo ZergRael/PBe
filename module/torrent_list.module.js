@@ -33,6 +33,16 @@ ext.modules.torrent_list = {
       btnPos: 'before',
       canFilter: true
     }
+  }, {
+    path_name: '/torrent.php',
+    params: {
+      id: '*'
+    },
+    options: {
+      buttons: '#torrent_list',
+      btnPos: 'before',
+      canFilter: true
+    }
   }],
   loaded: false,
   prepared: false,
