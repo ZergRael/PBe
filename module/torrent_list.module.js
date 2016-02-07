@@ -7,7 +7,6 @@ ext.modules.torrent_list = {
       buttons: '#sort',
       btnPos: 'prepend',
       canRefresh: true,
-      canMark: true,
       canFilter: true,
       canSort: true
     }
