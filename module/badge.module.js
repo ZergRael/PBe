@@ -180,29 +180,29 @@ ext.modules.badge = {
   }, {
     name: 'Requêtes',
     b: [{
-      name: false,
+      name: 'Grain de sable',
       threshold: 1,
-      img: false,
+      img: 'https://phxbit.com/static/images/badges/reqfiller1.png',
+      hover: '1ère requête comblée !',
+    }, {
+      name: 'Ardoise',
+      threshold: 5,
+      img: 'https://phxbit.com/static/images/badges/reqfiller2.png',
+      hover: '5 requêtes comblées !',
+    }, {
+      name: 'Silex',
+      threshold: 10,
+      img: 'https://phxbit.com/static/images/badges/reqfiller3.png',
+      hover: '10 requêtes comblées !',
+    }, {
+      name: false,
+      threshold: 25,
+      img: 'https://phxbit.com/static/images/badges/reqfiller4.png',
       hover: false,
     }, {
       name: false,
-      threshold: false,
-      img: false,
-      hover: false,
-    }, {
-      name: false,
-      threshold: false,
-      img: false,
-      hover: false,
-    }, {
-      name: false,
-      threshold: false,
-      img: false,
-      hover: false,
-    }, {
-      name: false,
-      threshold: false,
-      img: false,
+      threshold: 50,
+      img: 'https://phxbit.com/static/images/badges/reqfiller5.png',
       hover: false,
     }],
   }],
