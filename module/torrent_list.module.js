@@ -662,7 +662,10 @@ ext.modules.torrent_list = {
         });
         if (!imgs.length) {
           $(data).find('#torrent div.bbcenter img').each(function() {
-            imgs.push($(this).attr('src'));
+            var img = $(this).attr('src');
+            if (!img.endsWith('.gif')) {
+              imgs.push($(this).attr('src'));
+            }
           });
         }
 
