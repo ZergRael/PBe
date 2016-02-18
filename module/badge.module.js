@@ -96,10 +96,10 @@ ext.modules.badge = {
   }, {
     name: 'Invitations',
     b: [{
-      name: false,
+      name: 'Tête à tête',
       threshold: 1,
       img: 'https://phxbit.com/static/images/badges/invite1.png',
-      hover: false,
+      hover: 'Votre premier ami sur le site !',
     }, {
       name: false,
       threshold: 5,
@@ -271,8 +271,7 @@ ext.modules.badge = {
     block: [{
       name: 'Invitations',
       selector: function($d) {
-        // Just a guess, no idea what it looks like
-        return $d.find('#centre table tr:not(:first)').length;
+        return $d.find('#centre table tr').length;
       }
     }],
   }, {
@@ -312,6 +311,7 @@ ext.modules.badge = {
     module.dbg('loadModule : Starting');
     // Execute functions
 
+    // Invite url requires authkey
     module.sources.filter(function(e) {
       return e.name == 'invite_list';
     })[0].url = '/invite.php?action=mine&ak=' + utils.getAuthkey();
