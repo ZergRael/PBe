@@ -165,8 +165,10 @@ ext.modules.endless_scrolling = {
     module.rewritePagination(module.pager.thisPage);
     module.interceptPaginationClicks();
 
-    $(document).scroll(function() {
-      module.endlessScroll();
+    $(document).ready(function() {
+      $(document).scroll(function() {
+        module.endlessScroll();
+      });
     });
 
     // Auto endless scrolling pause if any textarea has been focused - mostly forums usage
