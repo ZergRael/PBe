@@ -78,6 +78,7 @@ ext.loader = {
         name: e.name,
         msg: e.message,
         stack: e.stack,
+        location: window.location.href,
       });
       if (ext.DEBUG) {
         throw e;
